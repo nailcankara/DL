@@ -35,7 +35,7 @@ classifier.add(Dropout(p=0.1)) #close %10 node
 classifier.add(Dense(units=6 ,  kernel_initializer='uniform' , activation= 'relu'))
 classifier.add(Dropout(p=0.1))
 classifier.add(Dense(units=1 ,  kernel_initializer='uniform' , activation= 'sigmoid'))
-classifier.compile(optimizer='adam' , loss= 'binary_crossentropy' , metrics=['accuracy'])
+classifier.compile(optimizer='adam' , loss= 'binary_crossentropy' , metrics=['accuracy'])  #categorical_crossentropy for multiple categories
 classifier.fit(X_train , y_train , batch_size=10 , epochs=100)
 #%%
 y_pred = classifier.predict(X_test)
