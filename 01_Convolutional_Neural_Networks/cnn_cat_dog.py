@@ -2,7 +2,7 @@
 
 !unzip P16-Convolutional-Neural-Networks.zip
 
-cd /content/Convolutional_Neural_Networks
+cd /Convolutional_Neural_Networks
 
 from keras.models import Sequential
 from keras.layers import Convolution2D
