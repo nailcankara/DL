@@ -48,7 +48,6 @@ def showResults(gen):
 
 epochs = 100
 batch_size = 100
-eval_size = 32
 xtrain = np.reshape(xtrain,[xtrain.shape[0],-1])
 xtest = np.reshape(xtest,[xtest.shape[0],-1])
 xtrain = (xtrain.astype(np.float32) - 127.5)/127.5
@@ -67,5 +66,3 @@ for e in range(epochs):
         gan.train_on_batch(noise, np.array([[1.]]*batch_size))
     
     showResults(generator)
-
-from tqdm import tqdm
