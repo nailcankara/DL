@@ -69,12 +69,8 @@ for epoch in range(epochs):
 
       autoencoder.train_on_batch(batch_input,target)
 
-
       train_loss += np.sum(((predicted - target) * (predicted - target) / 2))
       s=s+1
-      total_mean += len(target[target > 0])
-  mean_corrector = total_mean / s
-  train_loss = train_loss / (mean_corrector + 1e-10)
-  
+
   print('epoch: ' +str(epoch) + ' loss: '+str(train_loss/s))
   print("----------------------------")
