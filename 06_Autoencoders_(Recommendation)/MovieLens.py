@@ -48,7 +48,7 @@ autoencoder.compile(optimizer='adam', loss='mean_squared_error')
 
 epochs = 250
 batch_size = 1
-import time
+
 for epoch in range(epochs):
   train_loss=0
   s=0
