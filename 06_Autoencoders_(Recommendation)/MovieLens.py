@@ -38,9 +38,9 @@ import keras.backend as K
 K.clear_session()
 
 input = Input(shape=(nb_movies,))
-encoded1 = Dense(50,activation='sigmoid')(input)
-encoded2 = Dense(25,activation='sigmoid')(encoded1)
-decoded1 = Dense(50,activation='sigmoid')(encoded2)
+encoded1 = Dense(50,activation='relu')(input)
+encoded2 = Dense(25,activation='relu')(encoded1)
+decoded1 = Dense(50,activation='relu')(encoded2)
 output = Dense(nb_movies)(encoded1)
 
 autoencoder = Model(input,output)
@@ -58,9 +58,17 @@ for epoch in range(epochs):
     target = np.copy(batch_input)
     if np.sum(training_set[i]) > 0:
       predicted = autoencoder.predict_on_batch(training_set[(i) * batch_size:(i + 1) * batch_size]) 
-      K.stop_gradient(target)
-      predicted[target == 0] = 0
-      autoencoder.train_on_batch(predicted,target)
+
+      zero_indexes = [zero_indexes for zero_indexes in target==0]
+      zero_indexes = list(zero_indexes[0])
+      zero_indexes = np.where(zero_indexes)[0]
+
+      for replace in range(target.shape[1]):
+        if replace in zero_indexes:
+          target[0][replace] = predicted[0][replace]
+
+      autoencoder.train_on_batch(batch_input,target)
+
 
       train_loss += np.sum(((predicted - target) * (predicted - target) / 2))
       s=s+1
